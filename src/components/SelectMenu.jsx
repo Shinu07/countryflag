@@ -1,13 +1,31 @@
-export default function SelectMenu() {
-  const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
-  
+import PropTypes from 'prop-types';
+
+export default function RegionSelect({  setSelectedRegion }) {
+  const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+
+  const handleRegionChange = (e) => {
+    const value = e.target.value
+    setSelectedRegion(value)
+  };
+
   return (
-    <select className="filter-by-region">
-    <option hidden="">Filter by Regions</option>
-    {regions.map((region)=>(
-        <option key={region} value={region}>{region}</option>
-    ))}
-    </select>
+    <div className="region-select-container">
+      <select 
+        onChange={handleRegionChange}
+        aria-label="Filter by Region"
+        defaultValue=""
+      >
+        <option value="">Filter by Region</option>
+        {regions.map(region => (
+          <option key={region} value={region}>
+            {region}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }
 
+RegionSelect.propTypes = {
+  setSelectedRegion: PropTypes.func.isRequired
+};
